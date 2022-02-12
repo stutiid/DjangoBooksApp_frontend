@@ -1,0 +1,54 @@
+.dashboard-main-div{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.dashboard-app-icon{
+    margin-left: 100px;
+    padding-right: 5px;
+}
+.dashboard-search-div{
+    width:30%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 4px;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+}
+.dashboard-search-text{
+    width: 100%;
+}
+.dashboard-search-button{
+    padding-bottom: 5px;
+}
+.dashboard-content-div{
+    margin-top: 5px;
+    padding: 0px 0px;
+    width: 80%;
+    margin-left: 125px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.dashboard-author-div{
+    margin-top:5px;
+    margin-left: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.add-author-modal{
+    margin-top:20%;
+    margin-left:40%;
+    width: 20%;
+    height: 20%;
+}
+.dashboard-button{
+    border: 2px solid black;
+    background-color: #00131c;
+    color: white;
+    font-size: medium;
+}
