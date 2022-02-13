@@ -8,7 +8,7 @@ import AddBook from "./AddBook";
 import Service from "../services/Service";
 
 /**
- * @description :- the class represents a page contaiing the collection of books which are available for user to be purched or to add to cart
+ * @description :- the class represents a page containing the collection of books and other operations
  */
 var bookUrl = "book/";
 export default class AuthorDashboard extends Component {
@@ -23,13 +23,21 @@ export default class AuthorDashboard extends Component {
       addBook: false,
     };
   }
-
+  /**
+   * @description:- the function handles the state change if any in the propeerties of the component by using set state and assigning value to the targeted
+   * name
+   * @param {*} event :- which triggers the change in the value or state of the field
+   */
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
 
+  /**
+   * @description:- to set the state for the yearFilter and then calling the filterBooks method to change the page content accordingly
+   * @param {*} event :- which triggers the change in the value or state of the field
+   */
   handleYearFilter = (event) => {
     this.setState(
       {
@@ -49,12 +57,18 @@ export default class AuthorDashboard extends Component {
     );
   };
 
+  /**
+   * @description:- to handle the opening of popup page to add new book by setting the state of addBook to true
+   */
   handleClick = () => {
     this.setState({
       addBook: true,
     });
   };
 
+  /**
+   * @description:- to handle the closing of popup page by setting the state of addBook to false
+   */
   handleClose = () => {
     this.setState(
       {
@@ -64,6 +78,10 @@ export default class AuthorDashboard extends Component {
     );
   };
 
+  /**
+   * @description:- to set the state for the ratingFilter and then calling the filterBooks method to change the page content accordingly
+   * @param {*} event :- which triggers the change in the value or state of the field
+   */
   handleRatingFilter = (event) => {
     this.setState(
       {
@@ -83,6 +101,10 @@ export default class AuthorDashboard extends Component {
     );
   };
 
+  /**
+   * @description:- to set the state for the pageFilter and then calling the filterBooks method to change the page content accordingly
+   * @param {*} event :- which triggers the change in the value or state of the field
+   */
   handlePageFilter = (event) => {
     this.setState(
       {
@@ -92,18 +114,17 @@ export default class AuthorDashboard extends Component {
         if (this.state.pageFilter === "All") {
           this.getBooks(bookUrl);
         } else {
-          this.filterBooks(
-            bookUrl,
-            this.state.pageFilter,
-            "no_of_pages"
-          );
+          this.filterBooks(bookUrl, this.state.pageFilter, "no_of_pages");
         }
       }
     );
   };
 
+  /**
+   * @description:- to reload the contents of page by book name given by user
+   */
   handleReload = () => {
-    this.filterBooks(bookUrl, this.state.searchName,"name");
+    this.filterBooks(bookUrl, this.state.searchName, "name");
   };
 
   /**
@@ -115,7 +136,7 @@ export default class AuthorDashboard extends Component {
 
   /**
    * @description:- function handles the retrieving of books from the backend by making the call to the backend api and then if response is ok then
-   * setting the data state to response data and also setting the timer for refresh period
+   * setting the data state to response data
    */
   getBooks = (url) => {
     (async () => {
@@ -128,6 +149,9 @@ export default class AuthorDashboard extends Component {
     })();
   };
 
+  /**
+   * @description:- function handles the loading of book data to the CSV file by making a call to backend API
+   */
   exportData = () => {
     (async () => {
       let response = await new Service().getAuthors("file_operations_book/");
@@ -137,6 +161,12 @@ export default class AuthorDashboard extends Component {
     })();
   };
 
+  /**
+   * To get the data from the backend according to the filter given by the user
+   * @param {*} url :- backend url
+   * @param {*} params :- filter value given by user
+   * @param {*} type :- filter type like name, year, rating or number of page
+   */
   filterBooks = (url, params, type) => {
     (async () => {
       let response = await new Service().filterBooksByName(url, params, type);
@@ -186,7 +216,13 @@ export default class AuthorDashboard extends Component {
           </Toolbar>
         </AppBar>
         <div className="dashboard-content-div">
-          <button onClick={this.handleClick} className="dashboard-button">
+          <button onClick={(event) => (window.location.href = "./author_dashboard")} className="dashboard-button-author">
+            <h4>Author Page</h4>
+          </button>
+          <button
+            onClick={this.handleClick}
+            className="dashboard-button"
+          >
             <h4>Add Book</h4>
             {display}
           </button>

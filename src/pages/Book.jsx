@@ -1,11 +1,10 @@
 import { Card, CardActions, CardContent } from "@material-ui/core";
 import { Component } from "react";
-import StarIcon from '@mui/icons-material/Star';
+import StarIcon from "@mui/icons-material/Star";
 import "../scss/Author.scss";
 
 /**
- * @description:- the class represents a book by showcasing its details like cover page, title, author and base_price to the user so on button
- * click user can add the book to its cart
+ * @description:- the class represents a book by showcasing its details on the card
  */
 export default class Book extends Component {
   constructor(props) {
@@ -15,6 +14,9 @@ export default class Book extends Component {
     };
   }
 
+  /**
+   * @description :- to handle the click on more details button and redirecting user to the particular page
+   */
   handleClick = () => {
     if (
       window.confirm(
@@ -46,8 +48,8 @@ export default class Book extends Component {
           <br />
           Date Of Publishing: {book.date_of_publishing}
           <br />
-          Average Critics Rating: {book.average_critics_rating} 
-          <StarIcon style={{fontSize:"small", color:"green"}}/>
+          Average Critics Rating: {book.average_critics_rating}
+          <StarIcon style={{ fontSize: "small", color: "green" }} />
           <br />
           Number of Pages:{book.number_of_pages}
           <br />

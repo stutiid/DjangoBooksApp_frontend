@@ -20,12 +20,20 @@ const initialState = {
   gender_error: "",
   country_error: "",
 };
+/**
+ * @description:- class represents page for adding new author by filling the form. On submit request will be made to the given api and
+ * on success alert message will be displayed and if not then alert containing the error message will be showcased
+ */
 export default class AddAuthor extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
   }
 
+   /**
+   * To handle the closing of this popup page by calling the parent function
+   * @param {*} event :- which triggers the closing of the popup page
+   */
   handleClick = (event) => {
     event.stopPropagation();
     this.props.handleClose();
@@ -87,7 +95,7 @@ export default class AddAuthor extends Component {
   };
 
   /**
-   * @description:- function is used to get the from data and make the api call with data and set the appropriate response in the alert box according to
+   * @description:- function is used to get the data from the form and make the api call with data and set the appropriate response in the alert box according to
    * the failure or success of api call
    * @param {*} event :- submission of form event
    */
@@ -113,8 +121,7 @@ export default class AddAuthor extends Component {
   };
 
   /**
-   * @description:- html code to render the note details in the card form
-   * @returns :- html code to render note
+   * @description:- html code to render the form for adding new author
    */
   render() {
     return (

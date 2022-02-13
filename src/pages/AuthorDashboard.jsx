@@ -8,7 +8,7 @@ import Author from "./Author";
 import Service from "../services/Service";
 
 /**
- * @description :- the class represents a page contaiing the collection of books which are available for user to be purched or to add to cart
+ * @description :- the class represents a page containing the list of authors nd other operations.
  */
 export default class AuthorDashboard extends Component {
   constructor(props) {
@@ -22,14 +22,22 @@ export default class AuthorDashboard extends Component {
     };
   }
 
+  /**
+   * @description:- the function handles the state change if any in the propeerties of the component by using set state and assigning value to the targeted
+   * name
+   * @param {*} event :- which triggers the change in the value or state of the field
+   */
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
 
+  /**
+   * @description:- to set the state for the genderFilter and then calling the filterAuthors method to change the page content accordingly
+   * @param {*} event :- which triggers the change in the value or state of the field
+   */
   handleGenderFilter = (event) => {
-    let type;
     this.setState(
       {
         genderFilter: event.target.value,
@@ -38,30 +46,38 @@ export default class AuthorDashboard extends Component {
         if (this.state.genderFilter === "All") {
           this.getAuthors("author/");
         } else {
-          this.filterAuthors(
-            "author/",
-            this.state.genderFilter,
-            (type = "gender")
-          );
+          this.filterAuthors("author/", this.state.genderFilter, "gender");
         }
       }
     );
   };
 
+  /**
+   * @description:- to handle the opening of popup page to add new author by setting the state of addAuthor to true
+   */
   handleClick = () => {
     this.setState({
       addAuthor: true,
     });
   };
 
+  /**
+   * @description:- to handle the closing of popup page by setting the state of addAuthor to false
+   */
   handleClose = () => {
-    this.setState({
-      addAuthor: false,
-    },this.getAuthors("author/"));
+    this.setState(
+      {
+        addAuthor: false,
+      },
+      this.getAuthors("author/")
+    );
   };
 
+  /**
+   * @description:- to set the state for the ageFilter and then calling the filterAuthors method to change the page content accordingly
+   * @param {*} event :- which triggers the change in the value or state of the field
+   */
   handleAgeFilter = (event) => {
-    let type;
     this.setState(
       {
         ageFilter: event.target.value,
@@ -70,15 +86,17 @@ export default class AuthorDashboard extends Component {
         if (this.state.ageFilter === "All") {
           this.getAuthors("author/");
         } else {
-          this.filterAuthors("author/", this.state.ageFilter, (type = "age"));
+          this.filterAuthors("author/", this.state.ageFilter, "age");
         }
       }
     );
   };
 
+  /**
+   * @description:- to reload the contents of page by author name given by user
+   */
   handleReload = () => {
-    let type;
-    this.filterAuthors("author/", this.state.searchName, (type = "name"));
+    this.filterAuthors("author/", this.state.searchName, "name");
   };
 
   /**
@@ -89,7 +107,7 @@ export default class AuthorDashboard extends Component {
   }
 
   /**
-   * @description:- function handles the retrieving of books from the backend by making the call to the backend api and then if response is ok then
+   * @description:- function handles the retrieving of authord from the backend by making the call to the backend api and then if response is ok then
    * setting the data state to response data and also setting the timer for refresh period
    */
   getAuthors = (url) => {
@@ -103,6 +121,9 @@ export default class AuthorDashboard extends Component {
     })();
   };
 
+  /**
+   * @description:- function handles the loading of author data to the CSV file by making a call to backend API
+   */
   exportData = () => {
     (async () => {
       let response = await new Service().getAuthors("file_operations_author/");
@@ -112,6 +133,12 @@ export default class AuthorDashboard extends Component {
     })();
   };
 
+  /**
+   * To get the data from the backend according to the filter given by the user
+   * @param {*} url :- backend url
+   * @param {*} params :- filter value given by user
+   * @param {*} type :- filter type like name, gender and age
+   */
   filterAuthors = (url, params, type) => {
     (async () => {
       let response = await new Service().filterAuthorsByName(url, params, type);
@@ -131,7 +158,7 @@ export default class AuthorDashboard extends Component {
       display = (
         <Modal open={this.state.addAuthor} onClose={this.handleClose}>
           <div className="add-author-modal">
-            <AddAuthor handleClose={this.handleClose}/>
+            <AddAuthor handleClose={this.handleClose} />
           </div>
         </Modal>
       );
@@ -161,12 +188,15 @@ export default class AuthorDashboard extends Component {
           </Toolbar>
         </AppBar>
         <div className="dashboard-content-div">
+        <button onClick={(event) => (window.location.href = "./book_dashboard")} className="dashboard-button-author">
+            <h4>Book Page</h4>
+          </button>
           <button onClick={this.handleClick} className="dashboard-button">
-              <h4>Add Author</h4>
-              {display}
+            <h4>Add Author</h4>
+            {display}
           </button>
           <button onClick={this.exportData} className="dashboard-button">
-              <h4>Export Data</h4>
+            <h4>Export Data</h4>
           </button>
           <select
             value={this.state.genderFilter}

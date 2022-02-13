@@ -3,8 +3,7 @@ import { Component } from "react";
 import "../scss/Author.scss";
 
 /**
- * @description:- the class represents a book by showcasing its details like cover page, title, author and base_price to the user so on button
- * click user can add the book to its cart
+ * @description:- the class represents a author by showcasing its details on the card
  */
 export default class Author extends Component {
   constructor(props) {
@@ -14,14 +13,22 @@ export default class Author extends Component {
     };
   }
 
-  handleClick=()=>{
-    if (window.confirm('Click ok to explore more details, Cancel to Stay on this page'))
-    {
-    window.open('https://en.wikipedia.org/wiki/List_of_best-selling_fiction_authors');
-    };
-  }
   /**
-   * @description:- function renders the book page
+   * @description :- to handle the click on more details button and redirecting user to the particular page
+   */
+  handleClick = () => {
+    if (
+      window.confirm(
+        "Click ok to explore more details, Cancel to Stay on this page"
+      )
+    ) {
+      window.open(
+        "https://en.wikipedia.org/wiki/List_of_best-selling_fiction_authors"
+      );
+    }
+  };
+  /**
+   * @description:- function renders the author page
    * @returns :- the html document
    */
   render() {
@@ -44,7 +51,9 @@ export default class Author extends Component {
           <br />
         </CardContent>
         <CardActions>
-          <button className="author-cart-button" onClick={this.handleClick}>More details</button>
+          <button className="author-cart-button" onClick={this.handleClick}>
+            More details
+          </button>
         </CardActions>
       </Card>
     );

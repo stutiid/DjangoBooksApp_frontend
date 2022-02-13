@@ -6,10 +6,10 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
  */
 export default class Service {
   /**
-   * @description:- function is used to call the api to register the user or to call the api for forgot password with the data provided by the user. Using axios to get appropriate response
+   * @description:- function is used to call the api to add the new author or new book with the data provided by the user. Using axios to get appropriate response
    * on completion or failure of task
-   * @param {*} url_append :- url to be appended to the base url to call the register api or the forgot api
-   * @param {*} data :- given by user to be sent with the request to register the user or to set the password depends on the url_append and the data
+   * @param {*} url_append :- url to be appended to the base url to call the api for adding book or author
+   * @param {*} data :- given by user to be sent with the request to add the new book or author
    * @returns :- response on completion of promise which will be either success response or failure error
    */
   addAuthor(url_append, data) {
@@ -23,6 +23,11 @@ export default class Service {
       });
   }
 
+  /**
+   * @description:- function is used to get all the authors or book details from the backend
+   * @param {*} url_append :- url to be appended to the base url to call get api for book or author
+   * @returns :- response on completion of promise which will be either success response or failure error
+   */
   getAuthors(url_append) {
     return axios
       .get(url_append)
@@ -34,26 +39,33 @@ export default class Service {
       });
   }
 
-  filterAuthorsByName(url_append,value,type) {
-    let params
-    if (type === "name"){
+  /**
+   * @description :- function is used to get the filtered list of authors based on the filter value and type provided by the user
+   * @param {*} url_append :- url to be appended to the base url to call get api for author
+   * @param {*} value :- query parameter value given bu user
+   * @param {*} type :- query parameter key given by user on the basis of which filtering is to be done
+   * @returns:- response on completion of promise which will be either success response or failure error
+   */
+  filterAuthorsByName(url_append, value, type) {
+    let params;
+    if (type === "name") {
       params = {
-        name:value
+        name: value,
       };
     }
-    if (type === "gender"){
+    if (type === "gender") {
       params = {
-        gender:value
+        gender: value,
       };
     }
-    if(type==="age"){
+    if (type === "age") {
       params = {
-        age:value
+        age: value,
       };
     }
     return axios
-      .get(url_append,{
-        params: params
+      .get(url_append, {
+        params: params,
       })
       .then((response) => {
         return response;
@@ -63,31 +75,38 @@ export default class Service {
       });
   }
 
-  filterBooksByName(url_append,value,type) {
-    let params
-    if (type === "name"){
+  /**
+   * @description :- function is used to get the filtered list of books based on the filter value and type provided by the user
+   * @param {*} url_append :- url to be appended to the base url to call get api for book
+   * @param {*} value :- query parameter value given bu user
+   * @param {*} type :- query parameter key given by user on the basis of which filtering is to be done
+   * @returns:- response on completion of promise which will be either success response or failure error
+   */
+  filterBooksByName(url_append, value, type) {
+    let params;
+    if (type === "name") {
       params = {
-        name:value
+        name: value,
       };
     }
-    if (type === "average_critics_rating"){
+    if (type === "average_critics_rating") {
       params = {
-        average_critics_rating:value
+        average_critics_rating: value,
       };
     }
-    if(type==="year_of_publishing"){
+    if (type === "year_of_publishing") {
       params = {
-        year_of_publishing:value
+        year_of_publishing: value,
       };
     }
-    if(type==="no_of_pages"){
+    if (type === "no_of_pages") {
       params = {
-        no_of_pages:value
+        no_of_pages: value,
       };
     }
     return axios
-      .get(url_append,{
-        params: params
+      .get(url_append, {
+        params: params,
       })
       .then((response) => {
         return response;
