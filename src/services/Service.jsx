@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+axios.defaults.baseURL = 'https://djangowebapp-genebox-stuti.herokuapp.com/books_app/';
 /**
  * @description:- class is used to make api calls using axios to the backend server and return the appropriate response or error
  */
